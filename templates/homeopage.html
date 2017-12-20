@@ -71,7 +71,7 @@
            	    <h1 style="margin-top: 5px;">Home</h1>
                 <form method="post" action="/addpost/{{ hosts[1] }}">
                 <div>
-                    <textarea name="postbox" type="text" id="post" rows="6" cols="60" placeholder="say somthing..."></textarea>
+                    <textarea name="postbox" type="text" id="post" MAXLENGTH="200" rows="6" cols="60" placeholder="say somthing within 200 words..."></textarea>
                 </div>
                 <div style="float: left;height: 100%;width: 100%;margin-top: 5px;margin-bottom: 5px">
                     <label>
@@ -97,7 +97,7 @@
                         <p>
                            <strong style="color:orange;font-size: 16px">@{{ post[7] }}</strong><small style="margin-left:6px;color: #999999">{{ post[2] }}</small>
                         </p>
-                        <p>
+                        <p style="word-break:break-all; word-wrap:break-word">
                             <span style="font-size: 16px">{{ post[1] }}</span>
                         </p>
                         <p>

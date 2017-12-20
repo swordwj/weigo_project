@@ -48,8 +48,8 @@ def addComment(postid,host):
         rows = User().get_User(sql, parm)
         hostid = rows[0]
         hostname = rows[1]
-
-        if request.form['commbox'] == '':
+        content = request.form['commbox']
+        if content.strip() == '':
             error = 'You left nothing!'
             # 发送内容如果为空，提示并返回主页
             sql = 'SELECT * FROM comment WHERE message_id = %s ORDER BY comment_id DESC;'
@@ -120,8 +120,8 @@ def editComment(commid,host):
         parm = (commid,)
         row = Comment().get_Comment(sql, parm)
         postid = row[3]
-
-        if request.form['commeditbox'] == '':
+        content = request.form['commeditbox']
+        if content.strip() == '':
             error = 'you left nothing'
             return render_template('comm_edit.html', host=host, commid=commid, error=error)
         else:

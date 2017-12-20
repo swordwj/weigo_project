@@ -30,8 +30,9 @@ def addPost(host):
         rows = User().get_User(sql, parm)
         hostid = rows[0]
         print(hostid)
+        content = request.form['postbox']
 
-        if request.form['postbox'] == '':
+        if content.strip() == '':
             error = 'You can not send nothing!'
             # can not send nothing
             sql = 'SELECT * FROM message WHERE user_id = %s ORDER BY message_id DESC;'
@@ -98,7 +99,8 @@ def editPost(postid,host):
     if session.get('username') != host:
         return render_template('notlogin.html')
     else:
-        if request.form['posteditbox'] == '':
+        content = request.form['posteditbox']
+        if content.strip() == '':
             error = 'you left nothing'
             return render_template('post_edit.html', host=host, postid=postid, error=error)
         else:

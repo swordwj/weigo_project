@@ -46,14 +46,14 @@
         <p>
             <strong style="color:orange;font-size: 16px">@{{ posthost }}</strong><small style="margin-left:6px;color: #999999">{{ posttime }}</small>
         </p>
-        <p>
+        <p style="word-break:break-all; word-wrap:break-word">
             <span style="font-size: 16px">{{ post }}</span>
         </p>
     </div>
     <label style="margin-right: 20px;color: red">{{ error }}</label>
     <form id="{{ postid }}" method="post" action="{{ url_for('addcomment',postid=postid,host=host) }}">
         <div>
-            <textarea name="commbox" type="text" id="post" rows="2" cols="60" placeholder="say somthing..."></textarea>
+            <textarea name="commbox" type="text" id="post" rows="2" cols="60" MAXLENGTH="200" placeholder="say somthing within 200 words..."></textarea>
         </div>
 
         <div style="float: left;color: #337ab7;height: 100%;width: 100%;margin-top: 5px;margin-bottom: 5px">
@@ -78,7 +78,7 @@
                 <p>
                     <strong style="color:orange;font-size: 16px">@{{ comm[7] }}</strong><small style="margin-left:6px;color: #999999">{{ comm[2] }}</small>
                 </p>
-                <p>
+                <p style="word-break:break-all; word-wrap:break-word">
                     <span style="font-size: 16px">{{ comm[1] }}</span>
                 </p>
                 <p>

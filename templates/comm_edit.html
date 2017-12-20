@@ -38,7 +38,7 @@
         <h2 class="form-signin-heading">Update comment:</h2>
           <div>
               <label style="margin-right: 20px;color: red">{{ error }}</label>
-              <textarea style="margin-bottom: 10px" name="commeditbox" type="text" id="postedit" rows="5" cols="40">{{ comm }}</textarea>
+              <textarea style="margin-bottom: 10px" name="commeditbox" type="text" MAXLENGTH="200" id="postedit" rows="5" cols="40">{{ comm }}</textarea>
               <button class="btn btn-lg btn-primary btn-block" name="postedit" type="submit">Submit</button>
           </div>
       </form>
