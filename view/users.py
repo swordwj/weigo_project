@@ -54,6 +54,9 @@ def register():
         error = 'user is already exist!'
         return render_template('register.html', error1=error)
     else:
+        if len(request.form['username']) < 2:
+            error = 'length of username is too short!'
+            return render_template('register.html', error1=error)
         if len(request.form['password']) < 6:
             error = 'length of password should be more than six!'
             return render_template('register.html', error1=error)

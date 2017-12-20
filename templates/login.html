@@ -43,10 +43,15 @@
         <h3 class="form-signin-heading">Please sign in</h3>
         <a>{{ error1 }}</a>
         <label for="username" class="sr-only">Name</label>
-        <input type="text" id="name" name="username" class="form-control" placeholder="Input your name..." required="" autofocus="">
+        <input type="text" pattern="[0-9a-zA-Z]*" MAXLENGTH="10"
+               oninvalid="setCustomValidity('Only numbers and letters are allowed');"
+               oninput="setCustomValidity('');" id="name" name="username" class="form-control" placeholder="Input your name..."
+               required="required" autofocus="">
         <a>{{ error2 }}</a>
         <label for="password" class="sr-only">Password</label>
-        <input type="password" id="pwd" name="password" class="form-control" placeholder="Password..." required="">
+        <input type="password" id="pwd" name="password" pattern="[0-9a-zA-Z]*" MAXLENGTH="20"
+               oninvalid="setCustomValidity('Only numbers and letters are allowed');"
+               oninput="setCustomValidity('');" class="form-control" placeholder="Password..." required="">
 
         <div class="checkbox">
           <label>
