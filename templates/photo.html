@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="/static/picture/icon2.png">
+
+        <title>Weigo</title>
+
+        <link href="/static/bootstrap.min.css" rel="stylesheet"  type="text/css" />
+        <link href="/static/ie10-viewport-bug-workaround.css" rel="stylesheet"  type="text/css" />
+        <link href="/static/signin.css" rel="stylesheet"  type="text/css" />
+        <link href="/static/bootstrap.min.css" rel="stylesheet">
+
+        <div class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/home/{{ hosts[1] }}">Weigo</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout">Log out</a></li>
+              </ul>
+            </div>
+            </div>
+        </div>
+
+        <style type="text/css">
+            .daoru {font-size: 13px;}
+            .daoru .input_sub {width: 70px;height: 30px;line-height: 24px;text-align: center;font-size: 15px;color: #fff;border: none;background: #122b40;}
+        </style>
+    </head>
+
+    <body>
+
+    <div id="" class="container">
+    <form class="form-signin" method="post" action="/uploadphoto/{{ hosts[1] }}" enctype=multipart/form-data>
+        <h2 class="form-signin-heading">Upload photo:</h2>
+        <div style="margin-top: 30px">
+            <div style="margin-top: 5px;margin-bottom: 5px">
+                <label>
+                    <input type="file" id="file" name="avatar" style="" onchange="c()">
+                </label>
+            </div>
+            <div style="margin-top: 20px">
+                <img id='show' style="" src="" class="img-circle" style="vertical-align:middle;" width="150" height="150">
+            </div>
+            <div class="daoru" style="margin-top: 20px">
+                <button type="submit" class="input_sub" >Upload</button>
+            </div>
+            <div style="margin-top: 10px">
+                <label style="margin-right: 20px;color: blue;display: block;font-size: 15px">{{ type_error }}</label>
+            </div>
+        </div>
+    </form>
+    </div>
+
+    </body>
+
+    <script type="text/javascript">
+        function c () {
+        var r= new FileReader();
+        f=document.getElementById('file').files[0];
+        r.readAsDataURL(f);
+        r.onload=function  (e) {
+        document.getElementById('show').src=this.result;
+        };
+        }
+    </script>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/picture/icon2.png">
+
+    <title>Weigo</title>
+
+    <link href="/static/bootstrap.min.css" rel="stylesheet"  type="text/css" />
+    <link href="/static/ie10-viewport-bug-workaround.css" rel="stylesheet"  type="text/css" />
+    <link href="/static/signin.css" rel="stylesheet"  type="text/css" />
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+
+    <div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/home/{{ hosts[1] }}">Weigo</a>
+        </div>
+        <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/logout">Log out</a></li>
+              </ul>
+        </div>
+    </div>
+    </div>
+
+</head>
+
+<body>
+<div class="container">
+
+	<div class="rows">
+		<div class="span 2">
+            <aside id="left" style="float: left;line-height: 20px;height: 100%;width: 25%;margin: 5px;padding: 5px;">
+            <div style="text-align:center;line-height: 20px;height: 100%;width: 95%;margin: 5px;padding: 5px;">
+                {% if hosts[6] %}
+                <a href="/photopage/{{ hosts[1] }}"><img src="{{ hosts[6] }}" class="img-circle" alt="Cinque Terre" style="vertical-align:middle;" width="150" height="150"></a>
+                {% else %}
+                <a href="/photopage/{{ hosts[1] }}"><img src='/static/picture/default.jpg' class="img-circle" alt="Cinque Terre" style="vertical-align:middle;" width="150" height="150"></a>
+                {% endif %}
+            </div>
+            <div style="text-align:center;line-height:10px;height: 100%;width: 95%;margin: 5px;padding: 5px;">
+                <p style="font-size:20px;color: orange"><span><strong>Hello,{{ hosts[1] }}</strong></span></p>
+                <p style="font-size:15px;color: black;font-weight:bold"><span><a href="/followlist/{{ hosts[1] }}" style="color: black">Follows: {{ hosts[3] }}</a></span></p>
+                <p style="font-size:15px;color: black;font-weight:bold"><span><a href="/fanslist/{{ hosts[1] }}" style="color: black">Fans: {{ hosts[4] }}</a></span></p>
+                <p style="font-size:15px;color: black;font-weight:bold"><span><a href="/postlist/{{ hosts[1] }}" style="color: black">Post: {{ hosts[5] }}</a></span></p>
+            </div>
+            <div style="text-align:center;line-height: 20px;height: 100%;width: 95%;margin: 5px;padding: 5px;">
+			<ul class="nav nav-list" style="margin:5px;padding: 5px;">
+				<li class="nav-header">GENERAL</li>
+				<li class="active"><a href="/home/{{ hosts[1] }}">Home</a></li>
+				<li><a href="/friend/{{ hosts[1] }}">Friend</a></li>
+				<li class="nav-header">SETTING</li>
+				<li><a href="#">Link1</a></li>
+				<li><a href="#">Link2</a></li>
+				<li class="divider"></li>
+				<li><a href="#">Help</a></li>
+			</ul>
+            </div>
+            </aside>
+		</div>
+
+        <div class="span 5">
+            <div id="right" style="float: left;line-height: 20px;height: 100%;width: 60%;margin-left: 50px;padding: 5px;">
+           	    <h1 style="margin-top: 5px;">Home</h1>
+                <form method="post" action="/addpost/{{ hosts[1] }}">
+                <div>
+                    <textarea name="postbox" type="text" id="post" rows="6" cols="60" placeholder="say somthing..."></textarea>
+                </div>
+                <div style="float: left;height: 100%;width: 100%;margin-top: 5px;margin-bottom: 5px">
+                    <label>
+                        <input type="file">
+                    </label>
+                </div>
+                <div style="float: left;color: #337ab7;height: 100%;width: 100%;margin-top: 5px;margin-bottom: 5px">
+                   <button style="background:black;color:white;text-align:center; width: 50px;height: 30px" name="send" type="submit">Send</button>
+                   <label style="margin-right: 20px;color: red">{{ error }}</label>
+                </div>
+                </form>
+
+                <div id="postlist" style="float: left;line-height: 20px;height: 100%;width:100%;margin-top: 10px;padding: 3px;">
+                    {% for post in posts %}
+                    <div id="{{ post[0] }}" style="float: left; height: 100%;width:10%;margin: 1px;padding: 1px;">
+                        {% if post[8] %}
+                        <img src="{{ post[8] }}" class="img-circle" alt="Cinque Terre" style="text-align: left;" width="50" height="50">
+                        {% else %}
+                        <img src="/static/picture/default.jpg" class="img-circle" alt="Cinque Terre" style="text-align: left;" width="50" height="50">
+                        {% endif %}
+                    </div>
+                    <div style="float:left;height: 100%;width:80%;margin: 1px;padding: 1px;">
+                        <p>
+                           <strong style="color:orange;font-size: 16px">@{{ post[7] }}</strong><small style="margin-left:6px;color: #999999">{{ post[2] }}</small>
+                        </p>
+                        <p>
+                            <span style="font-size: 16px">{{ post[1] }}</span>
+                        </p>
+                        <p>
+                            <span style="margin-right: 5px">
+                                <a href="/like/{{ post[0] }}/{{ hosts[1] }}"><img src="/static/picture/like.png" width="16" height="14"></a>
+                            </span>
+                            <span style="margin-right: 10px">{{ post[4] }}</span>
+
+                             <span style="margin-right: 5px">
+                                <a href="/comment/{{ post[0] }}/{{ hosts[1] }}"><img src="/static/picture/comm.png" width="16" height="14"></a>
+                            </span>
+                            <span style="margin-right: 10px">{{ post[3] }}</span>
+
+                            {% if post[6] == hosts[0] %}
+                            <span style="margin-right: 15px">
+                                <a href="/editpage/{{ post[0] }}/{{ hosts[1] }}"><img src="/static/picture/edit.png" width="16" height="14"></a>
+                            </span>
+
+                             <span style="margin-right: 15px">
+                                <a href="/delete/{{ post[0] }}/{{ hosts[1] }}"><img src="/static/picture/del.png" width="16" height="14"></a>
+                            </span>
+                            {% endif %}
+
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+	</div>
+
+</div>
+
+</body>
+</html>
