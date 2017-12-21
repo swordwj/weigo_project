@@ -14,11 +14,6 @@ def connect_db():
 
 class User():
 
-    # def __init__(self,autocommit=True):
-    #     self.conn = psycopg2.connect(database="weigodb", user="postgres", password="123456", host="localhost", port="5432")
-    #     self.autocommit = autocommit
-    #     self.cur = self.conn.cursor()
-
     def get_User(self,sql='',parm=()):
         conn = connect_db()
         self.cur = conn.cursor()
@@ -41,12 +36,6 @@ class User():
         conn.close()
 
 class Post():
-
-    # def __init__(self, autocommit=True):
-    #     self.conn = psycopg2.connect(database="weigodb", user="postgres", password="123456", host="localhost",
-    #                                  port="5432")
-    #     self.autocommit = autocommit
-    #     self.cur = self.conn.cursor()
 
     def get_Post(self,sql='',parm=()):
         conn = connect_db()
@@ -71,12 +60,6 @@ class Post():
 
 class Comment():
 
-    # def __init__(self, autocommit=True):
-    #     self.conn = psycopg2.connect(database="weigodb", user="postgres", password="123456", host="localhost",
-    #                                  port="5432")
-    #     self.autocommit = autocommit
-    #     self.cur = self.conn.cursor()
-
     def get_Comment(self,sql='',parm=()):
         conn = connect_db()
         self.cur = conn.cursor()
@@ -99,12 +82,6 @@ class Comment():
         conn.close()
 
 class Like():
-
-    # def __init__(self, autocommit=True):
-    #     self.conn = psycopg2.connect(database="weigodb", user="postgres", password="123456", host="localhost",
-    #                                  port="5432")
-    #     self.autocommit = autocommit
-    #     self.cur = self.conn.cursor()
 
     def get_Like(self,sql='',parm=()):
         conn = connect_db()
@@ -129,12 +106,6 @@ class Like():
 
 class Relation():
 
-    # def __init__(self, autocommit=True):
-    #     self.conn = psycopg2.connect(database="weigodb", user="postgres", password="123456", host="localhost",
-    #                                  port="5432")
-    #     self.autocommit = autocommit
-    #     self.cur = self.conn.cursor()
-
     def get_Relation(self,sql='',parm=()):
         conn = connect_db()
         self.cur = conn.cursor()
@@ -157,12 +128,6 @@ class Relation():
         conn.close()
 
 class Photo():
-
-    # def __init__(self, autocommit=True):
-    #     self.conn = psycopg2.connect(database="weigodb", user="postgres", password="123456", host="localhost",
-    #                                  port="5432")
-    #     self.autocommit = autocommit
-    #     self.cur = self.conn.cursor()
 
     def get_Photo(self,sql='',parm=()):
         conn = connect_db()
