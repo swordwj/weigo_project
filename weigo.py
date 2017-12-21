@@ -56,9 +56,9 @@ def create_app(config_name):
 
 app = create_app('development')
 
-# @app.errorhandler(404)
-# def not_found(e):
-#     return render_template("error.html")
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("error.html")
 
 # @app.route('/')
 # def hello_world():

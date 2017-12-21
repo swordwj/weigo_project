@@ -64,7 +64,7 @@ def register():
             if request.form['password'] == request.form['repassword']:
                 salt_value = 'Ecm6'
                 md5 = create_md5(request.form['password'], salt_value)
-                sql_add = 'INSERT INTO users (user_name,user_password,follownum,fansnum,postnum) VALUES (%s,%s,0,0,0);'
+                sql_add = 'INSERT INTO users (user_name,user_password) VALUES (%s,%s);'
                 parm_add = (request.form['username'],md5)
                 User().set_User(sql_add, parm_add)
                 return render_template('success.html')

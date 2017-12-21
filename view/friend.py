@@ -21,34 +21,40 @@ def friend(host):
         else:
             return render_template('friend.html', hosts=hosts,friends=friends)
 
+
 def unFollow(host,userid):
 
-    # get host info
-    sql = 'SELECT * FROM users WHERE user_name = %s;'
-    parm = (host,)
-    hosts = User().get_User(sql, parm)
+    if session.get('username') != host:
+        return render_template('notlogin.html')
 
-    # get info of user
-    # sql = 'SELECT * FROM users WHERE user_id = %s;'
-    # parm = (userid,)
-    # userinfo = User().get_User(sql, parm)
+    else:
+        # get host info
+        sql = 'SELECT * FROM users WHERE user_name = %s;'
+        parm = (host,)
+        hosts = User().get_User(sql, parm)
 
-    # delete relation
-    sql_del = 'DELETE FROM relation WHERE user_id = %s AND follow_id = %s;'
-    parm_del = (hosts[0], userid)
-    Relation().set_Relation(sql_del, parm_del)
+        # get info of user
+        # sql = 'SELECT * FROM users WHERE user_id = %s;'
+        # parm = (userid,)
+        # userinfo = User().get_User(sql, parm)
 
-    # update the number of host follow
-    sql_update = 'UPDATE users SET follownum = follownum - 1  WHERE user_id = %s;'
-    parm = (hosts[0],)
-    User().set_User(sql_update, parm)
+        # delete relation
+        sql_del = 'DELETE FROM relation WHERE user_id = %s AND follow_id = %s;'
+        parm_del = (hosts[0], userid)
+        Relation().set_Relation(sql_del, parm_del)
 
-    # update the number of user fans
-    sql_update1 = 'UPDATE users SET fansnum = fansnum - 1  WHERE user_id = %s;'
-    parm1 = (userid,)
-    User().set_User(sql_update1, parm1)
+        # update the number of host follow
+        sql_update = 'UPDATE users SET follownum = follownum - 1  WHERE user_id = %s;'
+        parm = (hosts[0],)
+        User().set_User(sql_update, parm)
 
-    return redirect(url_for('friend',host=host))
+        # update the number of user fans
+        sql_update1 = 'UPDATE users SET fansnum = fansnum - 1  WHERE user_id = %s;'
+        parm1 = (userid,)
+        User().set_User(sql_update1, parm1)
+
+        return redirect(url_for('friend',host=host))
+
 
 def searchFriend(host):
 
@@ -56,7 +62,6 @@ def searchFriend(host):
         return render_template('notlogin.html')
 
     else:
-
         #get info of search
         sql = 'SELECT * FROM users WHERE user_name LIKE %s ORDER BY user_id DESC;'
         parm = ("%" + request.form['searchfriend'] + "%",)

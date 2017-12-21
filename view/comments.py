@@ -71,7 +71,7 @@ def addComment(postid,host):
                                    error=error, post=post, comms=comms)
         else:
             # 添加评论
-            sql_add = 'INSERT INTO comment (comment_info,comment_time,message_id,user_id,comm_commnum,comm_likenum,user_name) VALUES (%s,%s,%s,%s,0,0,%s);'
+            sql_add = 'INSERT INTO comment (comment_info,comment_time,message_id,user_id,user_name) VALUES (%s,%s,%s,%s,%s);'
 
             # 获取当前时间
             import datetime

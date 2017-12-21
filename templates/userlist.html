@@ -71,7 +71,10 @@
                 <form method="post" action="/searchfriend/{{ hosts[1] }}">
                    <a style="color: red">{{ error }}</a>
                    <label for="username" class="sr-only">Search</label>
-                   <input type="text" id="search" name="searchfriend" class="form-control" placeholder="Input the name you want search..." required="" autofocus="">
+                   <input type="text" id="search" name="searchfriend" pattern="[0-9a-zA-Z]*" MAXLENGTH="10"
+                          oninvalid="setCustomValidity('Please confirm only numbers and letters are included!');"
+                          oninput="setCustomValidity('');" class="form-control" placeholder="Input the name you want search..."
+                          required="" autofocus="">
                 <div style="float: left;color: #337ab7;height: 100%;width: 100%;margin-top: 10px;margin-bottom: 5px">
                    <button style="background:black;color:white;text-align:center; width: 80px;height: 30px" name="send" type="submit">Search</button>
                 </div>

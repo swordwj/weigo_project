@@ -28,9 +28,16 @@ class WeigoTestCase(unittest.TestCase):
 
         #register
         response = self.client.post('/rgs',data={
-            'username' : 'test0',
+            'username' : 'test',
             'password' : '111111',
             'repassword' : '111111'
+        })
+        data = response.get_data(as_text=True)
+        self.assertTrue(response.status_code == 200)
+        response = self.client.post('/rgs', data={
+            'username': 'test0',
+            'password': '111111',
+            'repassword': '111111'
         })
         data = response.get_data(as_text=True)
         self.assertTrue(response.status_code == 200)

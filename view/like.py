@@ -5,6 +5,7 @@ def like(postid,host):
     if session.get('username') != host:
         return render_template('notlogin.html')
     else:
+
         # 查找当前用户ID
         print(postid, host)
         sql = 'SELECT * FROM users WHERE user_name = %s;'
@@ -48,4 +49,5 @@ def like(postid,host):
             parm2 = (likenew, postid)
             Post().set_Post(sql2, parm2)
             return redirect(url_for('home', host=host))
+
 

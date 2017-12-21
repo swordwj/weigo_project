@@ -41,7 +41,7 @@ def addPost(host):
             return render_template('homeopage.html', hosts=rows, posts=posts, error=error)
         else:
             # insert a post
-            sql_add = 'INSERT INTO message (message_info,message_time,message_commentnum,message_likenum,user_id) VALUES (%s,%s,0,0,%s);'
+            sql_add = 'INSERT INTO message (message_info,message_time,user_id) VALUES (%s,%s,%s);'
             # 获取当前时间
             import datetime
             now = datetime.datetime.now()
