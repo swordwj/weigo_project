@@ -52,6 +52,13 @@
 ## Structure
 
 ## Screenshots
+![Image text](https://github.com/swordwj/weigo_project/blob/master/login.PNG)
+![Image text](https://github.com/swordwj/weigo_project/blob/master/register.PNG)
+![Image text](https://github.com/swordwj/weigo_project/blob/master/homepage.PNG)
+![Image text](https://github.com/swordwj/weigo_project/blob/master/comment.PNG)
+![Image text](https://github.com/swordwj/weigo_project/blob/master/searchfriend.PNG)
+![Image text](https://github.com/swordwj/weigo_project/blob/master/postedit.PNG)
+![Image text](https://github.com/swordwj/weigo_project/blob/master/commentedit.PNG)
 
 ## Update URL
 
