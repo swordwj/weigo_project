@@ -63,5 +63,5 @@
 ## Update URL
 https://github.com/swordwj/weigo_project
 
-## Contact us
+## Contact Us
 QQ:12345678910
