@@ -47,6 +47,7 @@
       DATABASE = "weigodb"
       USER = "username"
       PASSWORD = "password"
+[see sql file for database design details](https://github.com/swordwj/weigo_project/blob/master/public2.sql)  
 
 ## Structure
 ![Image text](https://github.com/swordwj/weigo_project/blob/master/projectcontent.PNG)
