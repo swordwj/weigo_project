@@ -47,7 +47,6 @@
       DATABASE = "weigodb"
       USER = "username"
       PASSWORD = "password"
-* API
 
 ## Structure
 ![Image text](https://github.com/swordwj/weigo_project/blob/master/projectcontent.PNG)
@@ -61,5 +60,7 @@
 ![Image text](https://github.com/swordwj/weigo_project/blob/master/commentedit.PNG)
 
 ## Update URL
+https://github.com/swordwj/weigo_project
 
 ## Contact us
+QQ:12345678910
