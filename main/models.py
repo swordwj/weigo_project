@@ -1,16 +1,19 @@
 import psycopg2
-from flask import current_app
+from flask import current_app,render_template
+
 
 def connect_db():
     # conn = psycopg2.connect(database="weigodb", user="postgres", password="123456", host="localhost", port="5432")
     # return conn
-    conn = psycopg2.connect(host=current_app.config['HOST'],
-        port = current_app.config['PORT'],
-        user = current_app.config['USER'],
-        password = current_app.config['PASSWORD'],
-        database = current_app.config['DATABASE'])
-    return conn
-
+    try:
+        conn = psycopg2.connect(host=current_app.config['HOST'],
+            port = current_app.config['PORT'],
+            user = current_app.config['USER'],
+            password = current_app.config['PASSWORD'],
+            database = current_app.config['DATABASE'])
+        return conn
+    except:
+        return render_template('error1.html')
 
 class User():
 
@@ -142,3 +145,173 @@ class Photo():
         self.cur.execute(sql, parm)
         conn.commit()
         conn.close()
+
+# def handleSqlError(function):
+#     def handleProblems(*args, **kwargs):
+#         try:
+#             return function(*args, **kwargs)
+#         except:
+#             return render_template('error1.html')
+#     return handleProblems
+#
+# @handleSqlError
+# def connect_db():
+#     # conn = psycopg2.connect(database="weigodb", user="postgres", password="123456", host="localhost", port="5432")
+#     # return conn
+#     try:
+#         conn = psycopg2.connect(host=current_app.config['HOST'],
+#             port = current_app.config['PORT'],
+#             user = current_app.config['USER'],
+#             password = current_app.config['PASSWORD'],
+#             database = current_app.config['DATABASE'])
+#         return conn
+#     except:
+#         return render_template('error1.html')
+#
+# class User():
+#
+#     @handleSqlError
+#     def get_User(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql,parm)
+#         self.result =  self.cur.fetchone()
+#         return self.result
+#
+#     @handleSqlError
+#     def get_AllUser(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql,parm)
+#         self.result =  self.cur.fetchall()
+#         return self.result
+#
+#     @handleSqlError
+#     def set_User(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql, parm)
+#         conn.commit()
+#         conn.close()
+#
+# class Post():
+#
+#     @handleSqlError
+#     def get_Post(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql,parm)
+#         self.result =  self.cur.fetchone()
+#         return self.result
+#
+#     @handleSqlError
+#     def get_AllPost(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql,parm)
+#         self.result = self.cur.fetchall()
+#         return self.result
+#
+#     @handleSqlError
+#     def set_Post(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql, parm)
+#         conn.commit()
+#         conn.close()
+#
+# class Comment():
+#
+#     @handleSqlError
+#     def get_Comment(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql,parm)
+#         self.result =  self.cur.fetchone()
+#         return self.result
+#
+#     @handleSqlError
+#     def get_AllComment(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql,parm)
+#         self.result = self.cur.fetchall()
+#         return self.result
+#
+#     @handleSqlError
+#     def set_Comment(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql, parm)
+#         conn.commit()
+#         conn.close()
+#
+# class Like():
+#
+#     @handleSqlError
+#     def get_Like(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql,parm)
+#         self.result =  self.cur.fetchone()
+#         return self.result
+#
+#     @handleSqlError
+#     def add_Like(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql, parm)
+#         conn.commit()
+#         conn.close()
+#
+#     @handleSqlError
+#     def del_Like(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql, parm)
+#         conn.commit()
+#         conn.close()
+#
+# class Relation():
+#
+#     @handleSqlError
+#     def get_Relation(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql,parm)
+#         self.result =  self.cur.fetchone()
+#         return self.result
+#
+#     @handleSqlError
+#     def get_AllRelation(self, sql='', parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql, parm)
+#         self.result = self.cur.fetchall()
+#         return self.result
+#
+#     @handleSqlError
+#     def set_Relation(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql, parm)
+#         conn.commit()
+#         conn.close()
+#
+# class Photo():
+#
+#     @handleSqlError
+#     def get_Photo(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql,parm)
+#         self.result =  self.cur.fetchone()
+#         return self.result
+#
+#     @handleSqlError
+#     def set_Photo(self,sql='',parm=()):
+#         conn = connect_db()
+#         self.cur = conn.cursor()
+#         self.cur.execute(sql, parm)
+#         conn.commit()
+#         conn.close()

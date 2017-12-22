@@ -7,7 +7,6 @@ app = create_app('testing')
 
 class WeigoTestCase(unittest.TestCase):
 
-
     def setUp(self):
         self.app_context = app.app_context()
         self.app_context.push()
@@ -483,7 +482,6 @@ class WeigoTestCase(unittest.TestCase):
         data = response.get_data(as_text=True)
         # print(data)
         self.assertTrue('Register' in data)
-
 
 if __name__ == '__main__':
     unittest.main()
