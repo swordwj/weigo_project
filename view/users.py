@@ -1,6 +1,7 @@
 from flask import request,render_template,abort,redirect,url_for,session
 from main.models import User,connect_db
 from hashlib import md5
+import traceback
 
 # def handleError(function):
 #     def handleProblems():
@@ -82,12 +83,14 @@ def index():
     try:
         return render_template('login.html')
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 def rgs():
     try:
         return render_template('register.html')
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 def logout():
@@ -95,6 +98,7 @@ def logout():
         session.pop('username', None)
         return render_template('login.html')
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 def create_md5(pwd,salt):
@@ -113,6 +117,7 @@ def login():
         parm = (request.form['username'],)
         rows = User().get_User(sql,parm)
     except:
+        traceback.print_exc()
         return render_template('error1.html')
 
     try:
@@ -130,6 +135,7 @@ def login():
             session['username'] = request.form['username']
             return redirect(url_for('home', host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -140,6 +146,7 @@ def register():
         parm = (request.form['username'],)
         rows = User().get_User(sql, parm)
     except:
+        traceback.print_exc()
         return render_template('error1.html')
 
     try:
@@ -166,10 +173,12 @@ def register():
                         conn = connect_db()
                         conn.rollback()
                         conn.close()
+                        traceback.print_exc()
                         return render_template('error1.html')
                 else:
                     error = 'password is not same!'
                     return render_template('register.html', error1=error)
     except:
+        traceback.print_exc()
         return render_template('error.html')
 

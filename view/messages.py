@@ -1,5 +1,6 @@
 from flask import request,render_template,Flask,redirect,url_for,session
 from main.models import User,Post,Like,Comment,Photo,connect_db
+import traceback
 
 # def handleError(function):
 #     def handleProblems(*args, **kwargs):
@@ -138,11 +139,13 @@ def home(host):
                 posts2 = Post().get_AllPost(sql2, parm2)
                 posts = sorted(posts1 + posts2, reverse=True)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             return render_template('homeopage.html', hosts=hosts, posts=posts)
         else:
             return render_template('notlogin.html')
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -160,7 +163,8 @@ def addPost(host):
                 print(hostid)
                 content = request.form['postbox']
             except:
-                render_template('error1.html')
+                traceback.print_exc()
+                return render_template('error1.html')
 
             if content.strip() == '':
                 error = 'You can not send nothing!'
@@ -170,7 +174,8 @@ def addPost(host):
                     parm = (hostid,)
                     posts = Post().get_AllPost(sql, parm)
                 except:
-                    render_template('error1.html')
+                    traceback.print_exc()
+                    return render_template('error1.html')
                 return render_template('homeopage.html', hosts=rows, posts=posts, error=error)
             else:
                 try:
@@ -191,9 +196,11 @@ def addPost(host):
                     conn = connect_db()
                     conn.rollback()
                     conn.close()
-                    render_template('error1.html')
+                    traceback.print_exc()
+                    return render_template('error1.html')
                 return redirect(url_for('home', host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -223,9 +230,11 @@ def deletePost(postid,host):
                 conn = connect_db()
                 conn.rollback()
                 conn.close()
-                render_template('error1.html')
+                traceback.print_exc()
+                return render_template('error1.html')
             return redirect(url_for('home', host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -241,9 +250,11 @@ def editPage(postid,host):
                 userid = rows[6]
                 post = rows[1]
             except:
-                return render_template('error.html')
+                traceback.print_exc()
+                return render_template('error1.html')
             return render_template('post_edit.html', host=host, postid=postid, post=post)
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -266,8 +277,10 @@ def editPost(postid,host):
                     conn = connect_db()
                     conn.rollback()
                     conn.close()
-                    render_template('error1.html')
+                    traceback.print_exc()
+                    return render_template('error1.html')
                 return redirect(url_for('home', host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 

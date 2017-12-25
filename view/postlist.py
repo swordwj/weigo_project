@@ -1,5 +1,6 @@
 from flask import request,render_template,Flask,redirect,url_for,session
 from main.models import User,Post,Like,Comment,Relation,connect_db
+import traceback
 
 # def handleError(function):
 #     def handleProblems(*args, **kwargs):
@@ -116,9 +117,11 @@ def postList(host):
                 parm = (hosts[0],)
                 posts = Post().get_AllPost(sql1,parm)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             return render_template('postlist.html',hosts=hosts,posts=posts)
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -149,9 +152,11 @@ def deletePostlist(postid,host):
                 conn = connect_db()
                 conn.rollback()
                 conn.close()
+                traceback.print_exc()
                 return render_template('error1.html')
             return redirect(url_for('postlist', host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -172,6 +177,7 @@ def postlistLike(postid,host):
                 parm = (postid,hostid)
                 result = Like().get_Like(sql_search,parm)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
 
             if result is not None:
@@ -194,6 +200,7 @@ def postlistLike(postid,host):
                     conn = connect_db()
                     conn.rollback()
                     conn.close()
+                    traceback.print_exc()
                     return render_template('error1.html')
                 return redirect(url_for('postlist', host=host))
             else:
@@ -215,8 +222,10 @@ def postlistLike(postid,host):
                     conn = connect_db()
                     conn.rollback()
                     conn.close()
+                    traceback.print_exc()
                     return render_template('error1.html')
                 return redirect(url_for('postlist', host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 

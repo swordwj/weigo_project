@@ -1,5 +1,6 @@
 from flask import request,render_template,Flask,redirect,url_for,session
 from main.models import User,Post,Like,Comment,Relation,connect_db
+import traceback
 
 # def handleError(function):
 #     def handleProblems(*args, **kwargs):
@@ -148,9 +149,11 @@ def follow(key,host):
                 parm1 = (hosts[0],)
                 follows = Relation().get_AllRelation(sql1, parm1)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             return render_template('friend.html', hosts=hosts, key=key, users=users, follows=follows)
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 # function decoration baidu or google
@@ -177,6 +180,7 @@ def doFollow(state,host,username,key):
                 parm1 = (hosts[0],)
                 follows = Relation().get_AllRelation(sql1, parm1)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             if state == 'FOLLOW':
                 # can not follow hostself
@@ -201,6 +205,7 @@ def doFollow(state,host,username,key):
                         conn = connect_db()
                         conn.rollback()
                         conn.close()
+                        traceback.print_exc()
                         return render_template('error1.html')
                     return redirect(url_for('follow', key=key, host=host))
             else:
@@ -221,9 +226,11 @@ def doFollow(state,host,username,key):
                     conn = connect_db()
                     conn.rollback()
                     conn.close()
+                    traceback.print_exc()
                     return render_template('error1.html')
                 return redirect(url_for('follow', key=key, host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -241,9 +248,11 @@ def followList(host):
                 parm1 = (hosts[0],)
                 users = User().get_AllUser(sql1, parm1)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             return render_template('userlist.html', hosts=hosts, users=users, list='Follow List')
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -261,8 +270,10 @@ def fansList(host):
                 parm1 = (hosts[0],)
                 users = User().get_AllUser(sql1, parm1)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             return render_template('userlist.html', hosts=hosts, users=users, list='Fans List')
     except:
+        traceback.print_exc()
         return render_template('error.html')
 

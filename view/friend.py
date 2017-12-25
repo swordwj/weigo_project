@@ -1,5 +1,6 @@
 from flask import request,render_template,Flask,redirect,url_for,session
 from main.models import User,Post,Like,Comment,Relation,connect_db
+import traceback
 
 # def handleError(function):
 #     def handleProblems(*args, **kwargs):
@@ -106,6 +107,7 @@ def friend(host):
                 friends = Relation().get_AllRelation(sql1, parm1)
                 friend = Relation().get_Relation(sql1, parm1)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             if friend is None:
                 info='You haven not been following anyone yet.Go and find friends ↑↑↑'
@@ -113,6 +115,7 @@ def friend(host):
             else:
                 return render_template('friend.html', hosts=hosts,friends=friends)
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -128,6 +131,7 @@ def unFollow(host,userid):
                 parm = (host,)
                 hosts = User().get_User(sql, parm)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             try:
                 # delete relation
@@ -146,9 +150,11 @@ def unFollow(host,userid):
                 conn = connect_db()
                 conn.rollback()
                 conn.close()
+                traceback.print_exc()
                 return render_template('error1.html')
             return redirect(url_for('friend',host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -167,6 +173,7 @@ def searchFriend(host):
                 parm1 = (host,)
                 hosts = User().get_User(sql, parm1)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             if user is None:
                 error = 'user is not exist!'
@@ -178,9 +185,11 @@ def searchFriend(host):
                     parm1 = (hosts[0],)
                     follows = Relation().get_AllRelation(sql1, parm1)
                 except:
+                    traceback.print_exc()
                     return render_template('error1.html')
                 return render_template('friend.html', hosts=hosts, users=users, follows=follows, key=key,list='User list')
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 

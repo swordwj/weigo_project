@@ -1,5 +1,6 @@
 from flask import request,render_template,Flask,redirect,url_for,session
 from main.models import User,Post,Like,connect_db
+import traceback
 
 # def handleError(function):
 #     def handleProblems(*args, **kwargs):
@@ -76,6 +77,7 @@ def like(postid,host):
                 parm = (postid, hostid)
                 result = Like().get_Like(sql_search, parm)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
 
             if result is not None:
@@ -98,6 +100,7 @@ def like(postid,host):
                     conn = connect_db()
                     conn.rollback()
                     conn.close()
+                    traceback.print_exc()
                     return render_template('error1.html')
                 return redirect(url_for('home', host=host))
             else:
@@ -119,8 +122,10 @@ def like(postid,host):
                     conn = connect_db()
                     conn.rollback()
                     conn.close()
+                    traceback.print_exc()
                     return render_template('error1.html')
                 return redirect(url_for('home', host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 

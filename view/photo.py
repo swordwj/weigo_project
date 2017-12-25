@@ -2,6 +2,7 @@ from flask import request,render_template,Flask,redirect,url_for,session
 from main.models import User,Post,Like,Comment,Photo,connect_db
 import os
 from PIL import Image
+import traceback
 
 # UPLOAD_FOLDER = os.getcwd() + '//static//avatar//'
 # ALLOWED_EXTENSIONS = ['png','jpg','bmp']
@@ -79,9 +80,11 @@ def photoPage(host):
                 parm = (host,)
                 hosts = User().get_User(sql, parm)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             return render_template('photo.html', hosts=hosts)
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -96,6 +99,7 @@ def uploadPhoto(host):
                 parm = (host,)
                 hosts = User().get_User(sql, parm)
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             # 获取文件，判断格式
             avatar = request.files['avatar']
@@ -116,8 +120,10 @@ def uploadPhoto(host):
                 conn = connect_db()
                 conn.rollback()
                 conn.close()
+                traceback.print_exc()
                 return render_template('error1.html')
             return redirect(url_for('home', host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 

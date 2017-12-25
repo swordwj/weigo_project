@@ -1,5 +1,6 @@
 from flask import request,render_template,Flask,redirect,url_for,session
 from main.models import User,Post,Like,Comment,connect_db
+import traceback
 
 # def handleError(function):
 #     def handleProblems(*args, **kwargs):
@@ -176,10 +177,12 @@ def comment(postid,host):
                 conn = connect_db()
                 conn.rollback()
                 conn.close()
+                traceback.print_exc()
                 return render_template('error1.html')
             return render_template('comments.html', postid=postid, host=host, post=post, posthost=posthost,posthostpic=posthostpic,
                                    posttime=posttime, comms=comms)
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -198,6 +201,7 @@ def addComment(postid,host):
                 hostname = rows[1]
                 content = request.form['commbox']
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
 
             if content.strip() == '':
@@ -220,6 +224,7 @@ def addComment(postid,host):
                     posthost = row[1]
                     posttime = rows[2]
                 except:
+                    traceback.print_exc()
                     return render_template('error1.html')
                 return render_template('comments.html', postid=postid, posttime=posttime, posthost=posthost, host=host,
                                        error=error, post=post, comms=comms)
@@ -239,9 +244,11 @@ def addComment(postid,host):
                     conn = connect_db()
                     conn.rollback()
                     conn.close()
+                    traceback.print_exc()
                     return render_template('error1.html')
                 return redirect(url_for('comment', postid=postid, host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -259,9 +266,11 @@ def delComment(postid,commid,host):
                 conn = connect_db()
                 conn.rollback()
                 conn.close()
+                traceback.print_exc()
                 return render_template('error1.html')
             return redirect(url_for('comment', postid=postid, commid=commid, host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -277,9 +286,11 @@ def editCommpage(commid,host):
                 row = Comment().get_Comment(sql, parm)
                 comm = row[1]
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             return render_template('comm_edit.html', host=host, commid=commid, comm=comm)
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
 
@@ -295,6 +306,7 @@ def editComment(commid,host):
                 postid = row[3]
                 content = request.form['commeditbox']
             except:
+                traceback.print_exc()
                 return render_template('error1.html')
             if content.strip() == '':
                 error = 'you left nothing'
@@ -309,8 +321,10 @@ def editComment(commid,host):
                     conn = connect_db()
                     conn.rollback()
                     conn.close()
+                    traceback.print_exc()
                     return render_template('error1.html')
                 return redirect(url_for('comment', postid=postid, host=host))
     except:
+        traceback.print_exc()
         return render_template('error.html')
 
