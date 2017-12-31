@@ -1,5 +1,5 @@
 from flask import request,render_template,Flask,redirect,url_for,session
-from main.models import User,Post,Like,Comment,Photo,connect_db
+from main.models import User,Post,Like,Comment,Photo,connect_db,Relation
 import traceback
 
 # def handleError(function):
@@ -129,6 +129,35 @@ def home(host):
                 # get infomation of host
                 sql = 'SELECT * FROM users WHERE user_name = %s;'
                 parm = (host,)
+                host1 = User().get_User(sql, parm)
+                #get post number
+                sql = 'SELECT COUNT(message_id) FROM message WHERE user_id = %s;'
+                parm = (host1[0],)
+                postnum = Post().get_Post(sql, parm)
+                # update host's number of post
+                sql_update = 'UPDATE users SET postnum = %s WHERE user_id = %s;'
+                parm = (postnum[0], host1[0],)
+                User().set_User(sql_update, parm)
+                # get follower number
+                sql = 'SELECT COUNT(follow_id) FROM relation WHERE user_id = %s;'
+                parm = (host1[0],)
+                follownum = Relation().get_Relation(sql, parm)
+                # update number of follower
+                sql_update = 'UPDATE users SET follownum = %s WHERE user_id = %s;'
+                parm = (follownum[0], host1[0],)
+                User().set_User(sql_update, parm)
+                #get fans number
+                sql = 'SELECT COUNT(user_id) FROM relation WHERE follow_id = %s;'
+                parm = (host1[0],)
+                fansnum = Relation().get_Relation(sql, parm)
+                # update host's number of fans
+                sql_update = 'UPDATE users SET fansnum = %s WHERE user_id = %s;'
+                parm = (fansnum[0], host1[0],)
+                User().set_User(sql_update, parm)
+
+                # get infomation of host
+                sql = 'SELECT * FROM users WHERE user_name = %s;'
+                parm = (host,)
                 hosts = User().get_User(sql, parm)
                 # get infomation the posts of host and friend
                 sql1 = 'SELECT message.*,users.user_name,users.userpic FROM message,relation,users WHERE relation.user_id = %s AND message.user_id = relation.follow_id AND message.user_id = users.user_id;'
@@ -139,6 +168,9 @@ def home(host):
                 posts2 = Post().get_AllPost(sql2, parm2)
                 posts = sorted(posts1 + posts2, reverse=True)
             except:
+                conn = connect_db()
+                conn.rollback()
+                conn.close()
                 traceback.print_exc()
                 return render_template('error1.html')
             return render_template('homeopage.html', hosts=hosts, posts=posts)
@@ -187,11 +219,6 @@ def addPost(host):
                     otherStyleTime = now.strftime("%Y-%m-%d %H:%M:%S")
                     parm_add = (request.form['postbox'], otherStyleTime, hostid)
                     Post().set_Post(sql_add, parm_add)
-
-                    # update host's number of post
-                    sql_update = 'UPDATE users SET postnum = postnum + 1  WHERE user_id = %s;'
-                    parm = (hostid,)
-                    User().set_User(sql_update, parm)
                 except:
                     conn = connect_db()
                     conn.rollback()

@@ -1,18 +1,34 @@
 import psycopg2
 from flask import current_app,render_template
-
+from DBUtils.PooledDB import PooledDB
+import traceback
 
 def connect_db():
-    # conn = psycopg2.connect(database="weigodb", user="postgres", password="123456", host="localhost", port="5432")
-    # return conn
+    # try:
+    #     conn = psycopg2.connect(host=current_app.config['HOST'],
+    #         port = current_app.config['PORT'],
+    #         user = current_app.config['USER'],
+    #         password = current_app.config['PASSWORD'],
+    #         database = current_app.config['DATABASE'])
+    #     return conn
+    # except:
+    #     return render_template('error1.html')
     try:
-        conn = psycopg2.connect(host=current_app.config['HOST'],
+        pool = PooledDB(psycopg2,
+            mincached=1,
+            maxcached=10,
+            maxconnections=10,
+            blocking=True,
+            host=current_app.config['HOST'],
             port = current_app.config['PORT'],
             user = current_app.config['USER'],
             password = current_app.config['PASSWORD'],
             database = current_app.config['DATABASE'])
+        conn = pool.connection()
         return conn
     except:
+        print("can not connect database!")
+        traceback.print_exc()
         return render_template('error1.html')
 
 class User():
@@ -32,9 +48,15 @@ class User():
         return self.result
 
     def set_User(self,sql='',parm=()):
-        conn = connect_db()
-        self.cur = conn.cursor()
-        self.cur.execute(sql, parm)
+        try:
+            conn = connect_db()
+            self.cur = conn.cursor()
+            self.cur.execute(sql, parm)
+        except:
+            conn = connect_db()
+            conn.rollback()
+            traceback.print_exc()
+            return render_template('error1.html')
         conn.commit()
         conn.close()
 
@@ -55,9 +77,15 @@ class Post():
         return self.result
 
     def set_Post(self,sql='',parm=()):
-        conn = connect_db()
-        self.cur = conn.cursor()
-        self.cur.execute(sql, parm)
+        try:
+            conn = connect_db()
+            self.cur = conn.cursor()
+            self.cur.execute(sql, parm)
+        except:
+            conn = connect_db()
+            conn.rollback()
+            traceback.print_exc()
+            return render_template('error1.html')
         conn.commit()
         conn.close()
 
@@ -78,9 +106,15 @@ class Comment():
         return self.result
 
     def set_Comment(self,sql='',parm=()):
-        conn = connect_db()
-        self.cur = conn.cursor()
-        self.cur.execute(sql, parm)
+        try:
+            conn = connect_db()
+            self.cur = conn.cursor()
+            self.cur.execute(sql, parm)
+        except:
+            conn = connect_db()
+            conn.rollback()
+            traceback.print_exc()
+            return render_template('error1.html')
         conn.commit()
         conn.close()
 
@@ -94,16 +128,28 @@ class Like():
         return self.result
 
     def add_Like(self,sql='',parm=()):
-        conn = connect_db()
-        self.cur = conn.cursor()
-        self.cur.execute(sql, parm)
+        try:
+            conn = connect_db()
+            self.cur = conn.cursor()
+            self.cur.execute(sql, parm)
+        except:
+            conn = connect_db()
+            conn.rollback()
+            traceback.print_exc()
+            return render_template('error1.html')
         conn.commit()
         conn.close()
 
     def del_Like(self,sql='',parm=()):
-        conn = connect_db()
-        self.cur = conn.cursor()
-        self.cur.execute(sql, parm)
+        try:
+            conn = connect_db()
+            self.cur = conn.cursor()
+            self.cur.execute(sql, parm)
+        except:
+            conn = connect_db()
+            conn.rollback()
+            traceback.print_exc()
+            return render_template('error1.html')
         conn.commit()
         conn.close()
 
@@ -124,9 +170,15 @@ class Relation():
         return self.result
 
     def set_Relation(self,sql='',parm=()):
-        conn = connect_db()
-        self.cur = conn.cursor()
-        self.cur.execute(sql, parm)
+        try:
+            conn = connect_db()
+            self.cur = conn.cursor()
+            self.cur.execute(sql, parm)
+        except:
+            conn = connect_db()
+            conn.rollback()
+            traceback.print_exc()
+            return render_template('error1.html')
         conn.commit()
         conn.close()
 
@@ -140,9 +192,15 @@ class Photo():
         return self.result
 
     def set_Photo(self,sql='',parm=()):
-        conn = connect_db()
-        self.cur = conn.cursor()
-        self.cur.execute(sql, parm)
+        try:
+            conn = connect_db()
+            self.cur = conn.cursor()
+            self.cur.execute(sql, parm)
+        except:
+            conn = connect_db()
+            conn.rollback()
+            traceback.print_exc()
+            return render_template('error1.html')
         conn.commit()
         conn.close()
 
